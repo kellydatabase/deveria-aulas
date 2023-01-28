@@ -13,5 +13,5 @@ export default(
         }
         return res.status(405).json({erro : 'Usuário ou senha não encontrato'});
     }
-    return res.status(405).json({erro : 'Metodo informado não é válido'});
+    return res.status(405).json({erro : 'Método informado não é válido'});
   }
