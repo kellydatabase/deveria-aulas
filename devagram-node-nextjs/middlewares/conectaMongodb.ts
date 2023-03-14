@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import mongoose from 'mongoose';
-import { error } from 'console';
 import {RespostaPadraoMsg} from '../types/RespostaPadraoMSG';
 
 export const conectarMongoDB = (handler : NextApiHandler) =>

@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import type {RespostaPadraoMsg} from '../types/RespostaPadraoMSG';
 import jwt, {JwtPayload } from "jsonwebtoken";
+import { UsuarioTokenModel } from "@/models/usuarioTokenModels";
 
-export const validarTkenJWT = (handler : NextApiHandler) =>
-(req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) =>{
+export const validarTokenJWT = (handler : NextApiHandler) =>
+async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) =>{
 
     try{
         const {MINHA_CHAVE_JWT} = process.env;
@@ -24,6 +25,11 @@ export const validarTkenJWT = (handler : NextApiHandler) =>
         const token = authorization.substring(7);
         if(!token){
             return res.status(401).json({erro: 'Não foi possivel vlaidar o token de acesso'})
+        }
+        
+        const tokenEncontrado = await UsuarioTokenModel.find({token});
+        if(tokenEncontrado && tokenEncontrado.length > 0) {
+            return res.status(401).json({erro: 'o token já foi inválidado'})
         }
         
         const decoded = jwt.verify(token, MINHA_CHAVE_JWT) as JwtPayload;

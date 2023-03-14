@@ -42,4 +42,5 @@ const uploadImagemCosmic = async(req : any) => {
         }
     }
 }
-export { upload, uploadImagemCosmic };
+
+export {upload, uploadImagemCosmic};
